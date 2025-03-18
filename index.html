@@ -5,20 +5,29 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script type="module" src="/src/main.ts"></script>
+    <link rel="stylesheet" href="src/style.css">
     <title>Vite + TS</title>
   </head>
   <body>
+    <div class="puntuacion">
+      <p class="puntuacion__texto">Tu puntuación:</p>
+      <h3 id="puntuacion__numero">0</h3>
+      <p class="gameover"> GAME OVER</p>
+    </div>
+    <div class="cartas">
     <div id="baraja">
-      <image carta="carta" src="assets/img/back.jpg" width="180px"/>
+      <image carta="carta" src="assets/img/back.jpg" width="220px"/>
     </div>
 
     <div id="miscartas">
-      <image id="carta" src="assets/img/7_siete-copas.jpg" width="180px"/>
+      <image id="carta" src="assets/img/7_siete-copas.jpg" width="220px"/>
+    </div>
     </div>
 
     <div class="botones">
-      <button class="boton plantar">Me planto</button>
-      <button class="boton pedir">Pedir carta</button>
+      <button class="boton" id="plantar">Me planto</button>
+      <button class="boton" id="pedir">Pedir carta</button>
+      <button class="boton" id="reset">Nueva partida</button>
     </div>
   </body>
 </html>
