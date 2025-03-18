@@ -1,13 +1,66 @@
 let card: number = 0;
-let puntuation: number = 0;
+let randomNum: number = 0;
 let puntuationBound: number = 0;
 
 const getRandomNum = (): number => {
-  let randomNum: number = Math.floor((Math.random() * 9) + 1);
+  randomNum = Math.floor(Math.random() * 10 + 1);
   if (randomNum > 7) {
-    return (puntuation = 0.5);
+    return randomNum + 2;
+  }
+  return randomNum;
+};
+
+const getValueHandler = (points: number): number => {
+  if (points > 7) {
+    return points = 0.5;
   } else {
-    return (puntuation = randomNum);
+    return points;
+  }
+};
+
+const getCardHandler = (puntuation: number) => {
+  const card = document.getElementById("carta");
+  if (card instanceof HTMLImageElement) {
+    switch (puntuation) {
+        case 0:
+        card.src = "";
+        break;
+      case 1:
+        card.src = "assets/img/1_as-copas.jpg";
+        break;
+      case 2:
+        card.src = "assets/img/2_dos-copas.jpg";
+        break;
+      case 3:
+        card.src = "assets/img/3_tres-copas.jpg";
+        break;
+      case 4:
+        card.src = "assets/img/4_cuatro-copas.jpg";
+        break;
+      case 5:
+        card.src = "assets/img/5_cinco-copas.jpg";
+        break;
+      case 6:
+        card.src = "assets/img/6_seis-copas.jpg";
+        break;
+      case 7:
+        card.src = "assets/img/7_siete-copas.jpg";
+        break;
+      case 10:
+        card.src = "assets/img/10_sota-copas.jpg";
+        break;
+      case 11:
+        card.src = "assets/img/11_caballo-copas.jpg";
+        break;
+      case 12:
+        card.src = "assets/img/12_rey-copas.jpg";
+        break;
+      default:
+        card.src = "assets/img/back.jpg";
+        break;
+    }
+  } else {
+    console.log("algo va mal");
   }
 };
 
@@ -32,7 +85,6 @@ const gameHandler = (puntuation: number) => {
   }
 };
 
-
 const puntuationBoundHandler = (newNumber: number): number => {
   return (puntuationBound = puntuationBound + newNumber);
 };
@@ -41,9 +93,12 @@ const hitMeHandler = () => {
   const hitMeButton = document.getElementById("pedir");
   if (hitMeButton instanceof HTMLButtonElement) {
     hitMeButton.addEventListener("click", () => {
-      puntuationBoundHandler(getRandomNum());
-      showPuntuation(puntuationBound);
-      gameOver(puntuationBound)
+      const randomNum = getRandomNum(); 
+      const value = getValueHandler(randomNum); 
+      puntuationBoundHandler(value); 
+      showPuntuation(puntuationBound); 
+      gameOver(puntuationBound); 
+      getCardHandler(randomNum); 
     });
   }
 };
@@ -63,7 +118,8 @@ const resetHandler = () => {
     resetButton.addEventListener("click", () => {
       puntuationBound = 0;
       showPuntuation(puntuationBound);
-      gameOver(0)
+      gameOver(0);
+      getCardHandler(0);
     });
   }
 };
@@ -79,13 +135,13 @@ const showPuntuation = (impressPuntuation: number) => {
 };
 
 const gameOver = (puntuacion: number) => {
-    const gameOverScreen = document.querySelector(".gameover")!;
-    if(gameOverScreen instanceof HTMLParagraphElement && puntuacion > 7.5){
-        gameOverScreen.classList.add("active");
-    }else{
-        gameOverScreen.classList.remove("active");
-    }
-}
+  const gameOverScreen = document.querySelector(".gameover")!;
+  if (gameOverScreen instanceof HTMLParagraphElement && puntuacion > 7.5) {
+    gameOverScreen.classList.add("active");
+  } else {
+    gameOverScreen.classList.remove("active");
+  }
+};
 
 document.addEventListener("DOMContentLoaded", () => {
   hitMeHandler();
