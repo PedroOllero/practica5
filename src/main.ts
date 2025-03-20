@@ -1,6 +1,9 @@
-let card: number = 0;
 let randomNum: number = 0;
 let puntuationBound: number = 0;
+
+const setPuntuationBound = (value: number): number => {
+  return (puntuationBound = value);
+};
 
 const getRandomNum = (): number => {
   randomNum = Math.floor(Math.random() * 10 + 1);
@@ -12,7 +15,7 @@ const getRandomNum = (): number => {
 
 const getValueHandler = (points: number): number => {
   if (points > 7) {
-    return points = 0.5;
+    return (points = 0.5);
   } else {
     return points;
   }
@@ -22,7 +25,7 @@ const getCardHandler = (puntuation: number) => {
   const card = document.getElementById("carta");
   if (card instanceof HTMLImageElement) {
     switch (puntuation) {
-        case 0:
+      case 0:
         card.src = "";
         break;
       case 1:
@@ -65,40 +68,54 @@ const getCardHandler = (puntuation: number) => {
 };
 
 const gameHandler = (puntuation: number) => {
-  if (puntuation < 4) {
-    console.log("Has sido muy conservador");
-  } else if (puntuation >= 5 && puntuation <= 7.5) {
-    switch (puntuation) {
-      case 5:
-        console.log("Te ha entrado el canguelo eh");
-        break;
-      case 6:
-        console.log("Casi casi...");
-        break;
-      case 7:
-        console.log("Casi casi...");
-        break;
-      case 7.5:
-        console.log("¡Lo has clavado! ¡Enhorabuena!");
-        break;
+  const comment = document.querySelector(".comentario");
+  if (comment instanceof HTMLParagraphElement) {
+    if (puntuation < 4 && puntuation > 0) {
+      comment.textContent = "Has sido muy conservador";
+      comment.classList.add("active");
+    } else if (puntuation >= 5 && puntuation <= 7.5) {
+      switch (puntuation) {
+        case 5:
+          comment.textContent = "Te ha entrado el canguelo eh";
+          comment.classList.add("active");
+          break;
+        case 6:
+          comment.textContent = "Casi casi...";
+          comment.classList.add("active");
+          break;
+        case 7:
+          comment.textContent = "Casi casi...";
+          comment.classList.add("active");
+          break;
+        case 7.5:
+          comment.textContent = "¡Lo has clavado!";
+          comment.classList.add("ganador");
+          break;
+        default:
+      }
+    } else {
+      comment.textContent = "";
+      comment.classList.remove("active");
     }
   }
 };
 
 const puntuationBoundHandler = (newNumber: number): number => {
-  return (puntuationBound = puntuationBound + newNumber);
+  const updatedPuntuationBound = puntuationBound + newNumber;
+  setPuntuationBound(updatedPuntuationBound);
+  return updatedPuntuationBound;
 };
 
 const hitMeHandler = () => {
   const hitMeButton = document.getElementById("pedir");
   if (hitMeButton instanceof HTMLButtonElement) {
     hitMeButton.addEventListener("click", () => {
-      const randomNum = getRandomNum(); 
-      const value = getValueHandler(randomNum); 
-      puntuationBoundHandler(value); 
-      showPuntuation(puntuationBound); 
-      gameOver(puntuationBound); 
-      getCardHandler(randomNum); 
+      const randomNum = getRandomNum();
+      const value = getValueHandler(randomNum);
+      puntuationBoundHandler(value);
+      showPuntuation(puntuationBound);
+      gameOver(puntuationBound);
+      getCardHandler(randomNum);
     });
   }
 };
@@ -116,10 +133,11 @@ const resetHandler = () => {
   let resetButton = document.getElementById("reset");
   if (resetButton instanceof HTMLButtonElement) {
     resetButton.addEventListener("click", () => {
-      puntuationBound = 0;
+      setPuntuationBound(0);
       showPuntuation(puntuationBound);
       gameOver(0);
       getCardHandler(0);
+      gameHandler(0);
     });
   }
 };
