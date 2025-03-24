@@ -100,12 +100,11 @@ body{
   font-size: 20px;
 }
 
+
 .boton:hover{
   background-color: rgb(171, 36, 36);
   box-shadow: 0 0 0px rgb(8, 55, 8);
 }
 
-#plantar{
-  background-color: rgb(68, 28, 28); 
-}
+
 

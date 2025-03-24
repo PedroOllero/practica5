@@ -65,22 +65,27 @@ const commentTransition = (activo: boolean) => {
 };
 
 const gameHandler = (puntuation: number): string => {
-    if (puntuation < 4 && puntuation > 0) {
-      return "Has sido muy conservador";
-    } else if (puntuation >= 5 && puntuation <= 7.5) {
-      switch (true) {
-        case (puntuation < 6):
-          return "Te ha entrado el canguelo eh";
-        case (puntuation >= 6 || puntuation <= 7):
-          return "Casi casi...";
-        case (puntuation === 7.5):
-          return "¡Lo has clavado!";
-        case (puntuation > 7.5):
-            return "Te has pasado...";
-        default:
-          "Intenta"
-      }}
-    return "";
+  if (puntuation > 0 && puntuation < 4) {
+    return "Has sido muy conservador";
+  }
+
+  if (puntuation >= 4 && puntuation < 6) {
+    return "Te ha entrado el canguelo eh";
+  }
+
+  if (puntuation >= 6 && puntuation < 7) {
+    return "Casi casi...";
+  }
+
+  if (puntuation === 7.5) {
+    return "¡Lo has clavado!";
+  }
+
+  if (puntuation > 7.5) {
+    return "Te has pasado...";
+  }
+
+  return "";
 };
 
 const commentHandler = (texto: string) => {
