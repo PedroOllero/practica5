@@ -73,13 +73,10 @@ const gameHandler = (puntuation: number): string => {
     return "Te ha entrado el canguelo eh";
   }
 
-  if (puntuation >= 6 && puntuation < 7) {
+  if (puntuation >= 6 && puntuation <= 7) {
     return "Casi casi...";
   }
 
-  if (puntuation === 7.5) {
-    return "¡Lo has clavado!";
-  }
 
   if (puntuation > 7.5) {
     return "Te has pasado...";
