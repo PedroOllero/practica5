@@ -77,6 +77,9 @@ const gameHandler = (puntuation: number): string => {
     return "Casi casi...";
   }
 
+  if (puntuation > 7.5) {
+    return "¡HAS GANADO!";
+  }
 
   if (puntuation > 7.5) {
     return "Te has pasado...";
