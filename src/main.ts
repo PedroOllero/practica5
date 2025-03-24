@@ -64,39 +64,36 @@ const commentTransition = (activo: boolean) => {
   }
 };
 
-const gameHandler = (puntuation: number) => {
-  const comment = document.querySelector(".comentario");
-  commentTransition(true);
-  if (comment && comment instanceof HTMLParagraphElement) {
+const gameHandler = (puntuation: number): string => {
     if (puntuation < 4 && puntuation > 0) {
-      comment.textContent = "Has sido muy conservador";
+      return "Has sido muy conservador";
     } else if (puntuation >= 5 && puntuation <= 7.5) {
-      switch (puntuation) {
-        case 5:
-          comment.textContent = "Te ha entrado el canguelo eh";
-          break;
-        case 5.5:
-          comment.textContent = "Te ha entrado el canguelo eh";
-          break;
-        case 6:
-          comment.textContent = "Casi casi...";
-          break;
-        case 6.5:
-          comment.textContent = "Casi casi...";
-          break;
-        case 7:
-          comment.textContent = "Casi casi...";
-          break;
-        case 7.5:
-          comment.textContent = "¡Lo has clavado!";
-          break;
+      switch (true) {
+        case (puntuation < 6):
+          return "Te ha entrado el canguelo eh";
+        case (puntuation >= 6 || puntuation <= 7):
+          return "Casi casi...";
+        case (puntuation === 7.5):
+          return "¡Lo has clavado!";
+        case (puntuation > 7.5):
+            return "Te has pasado...";
         default:
-      }
-    } else {
+          "Intenta"
+      }}
+    return "";
+};
+
+const commentHandler = (texto: string) => {
+  const comment = document.querySelector(".comentario");
+  if (comment && comment instanceof HTMLParagraphElement) {
+    if(texto === ""){
       commentTransition(false);
+    }else{
+      commentTransition(true);
+    comment.textContent = texto;
     }
   }
-};
+}
 
 const puntuationBoundHandler = (newNumber: number): number => {
   const updatedPuntuationBound = puntuationBound + newNumber;
@@ -124,7 +121,8 @@ const hitMeButtonHandler = () => {
 };
 
 const standHandler = () => {
-  gameHandler(puntuationBound)
+  let comentario = gameHandler(puntuationBound)
+  commentHandler(comentario)
 };
 
 const standButtonHandler = () => {
@@ -141,7 +139,8 @@ const resetHandler = () => {
   showPuntuation(puntuationBound);
   gameOver(0);
   paintCard("0");
-  gameHandler(0);
+  let comentario = gameHandler(0);
+  commentHandler(comentario)
 }
 
 const resetButtonHandler = () => {
